@@ -1,0 +1,55 @@
+.offer-list-container {
+    padding: 15px;
+    font-family: Arial, sans-serif;
+    background-color: var(--list-bg); /* Dynamisk bakgrund för Dark/Light Mode */
+    color: var(--list-text); /* Dynamisk textfärg */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smidigare övergångar */
+}
+
+.offer-list-header {
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--list-header); /* Dynamisk färg för rubrik */
+    font-size: 24px; /* Förbättrad läsbarhet */
+    font-weight: bold;
+}
+
+.offer-summary {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 18px;
+    color: var(--list-text); /* Dynamisk textfärg */
+}
+
+.offer-summary strong {
+    color: var(--summary-highlight); /* Dynamisk färg för höjdpunkter */
+    font-weight: bold;
+}
+
+.offer-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+/* Light Mode */
+.light-mode .offer-list-container {
+    --list-bg: #f9f9f9;
+    --list-text: #121212;
+    --list-header: #333333;
+    --summary-highlight: #4caf50;
+}
+
+/* Dark Mode */
+.dark-mode .offer-list-container {
+    --list-bg: #121212;
+    --list-text: #ffffff;
+    --list-header: #f5f5f5;
+    --summary-highlight: #4caf50;
+}
+
+/* Övergångsanimation för sammanfattning */
+.offer-summary p {
+    transition: color 0.3s ease;
+}
