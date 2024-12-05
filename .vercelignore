@@ -1,0 +1,12 @@
+# Python
+__pycache__/
+venv/
+*.pyc
+
+# Node.js
+node_modules/
+build/
+
+# Övriga potentiella stora filer/mappar
+*.log
+*.cache
