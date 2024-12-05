@@ -16,22 +16,24 @@ def get_campaigns():
         if not store_id:
             return jsonify({"error": "Missing 'store_id' parameter"}), 400
 
-        # URL för att hämta data från Willys API
         url = f"https://www.willys.se/search/campaigns/offline?q={store_id}&type=PERSONAL_GENERAL&page=0&size=500"
         response = requests.get(url, timeout=10)
         response.raise_for_status()
-
-        # Kontrollera att Willys API returnerar JSON
         data = response.json()
+
         if not isinstance(data, dict) or 'results' not in data:
             return jsonify({"error": "Unexpected response format"}), 500
 
-        return jsonify(data["results"])  # Returnera endast resultaten
+        return jsonify(data["results"])
 
     except requests.exceptions.RequestException as e:
         return jsonify({"error": "Failed to fetch data from Willys API", "details": str(e)}), 500
     except Exception as e:
         return jsonify({"error": f"Internal Server Error: {e}"}), 500
+
+# Lägg till en handler för serverless funktioner
+def handler(event, context):
+    return app(event, context)
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=5000)
