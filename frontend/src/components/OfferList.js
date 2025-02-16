@@ -11,7 +11,7 @@ function OfferList() {
   useEffect(() => {
     async function fetchOffers() {
       try {
-        const response = await fetch("http://localhost:5000/campaigns?store_id=2230");
+        const response = await fetch("https://willysrabattkoll.onrender.com/campaigns?store_id=2230");
         const data = await response.json();
 
         const processedOffers = data.map((offer) => {
