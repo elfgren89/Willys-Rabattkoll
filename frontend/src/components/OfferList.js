@@ -16,6 +16,10 @@ function OfferList() {
 
         const processedOffers = data.map((offer) => {
           const promotion = offer.potentialPromotions?.[0];
+          
+          // Extract quantity from conditionLabel (e.g., "2 för" -> 2)
+          const quantityMatch = promotion?.conditionLabel?.match(/^(\d+)\s+för/i);
+          const quantity = quantityMatch ? parseInt(quantityMatch[1]) : 1;
 
           const discountedPrice =
             parseFloat(promotion?.rewardLabel?.match(/\d+,\d+|\d+/)?.[0]?.replace(",", ".")) ||
@@ -23,11 +27,20 @@ function OfferList() {
 
           const saveAmount = parseFloat(promotion?.savePrice?.match(/\d+,\d+|\d+/)?.[0]?.replace(",", "."));
 
-          const originalPrice = saveAmount
-            ? (discountedPrice + saveAmount).toFixed(2)
-            : discountedPrice
-            ? discountedPrice
-            : null;
+          // For multi-item offers, adjust the originalPrice calculation
+          let originalPrice;
+          if (quantity > 1 && saveAmount) {
+            // If it's a multi-item offer, saveAmount is per item, but refers to total savings
+            // So the original price is (discounted price + saveAmount/quantity) per item
+            originalPrice = (discountedPrice + saveAmount/quantity).toFixed(2);
+          } else {
+            // For single item offers, use the existing calculation
+            originalPrice = saveAmount
+              ? (discountedPrice + saveAmount).toFixed(2)
+              : discountedPrice
+              ? discountedPrice
+              : null;
+          }
 
           return {
             ...offer,

@@ -1,25 +1,33 @@
 /* Global styling */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   font-family: 'Roboto', sans-serif;
   transition: background-color 0.3s, color 0.3s;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 .App {
   text-align: center;
-  padding: 10px;
+  padding: clamp(5px, 2vw, 20px);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 h1 {
   margin-bottom: 30px;
 }
 
-.offer-list {
-  display: flex;
-  flex-wrap: wrap; /* Tillåter att korten bryts till nya rader */
-  justify-content: center; /* Centrerar korten horisontellt */
-  gap: 16px; /* Mellanrum mellan korten */
-}
+/* Removed conflicting .offer-list class */
 
 /* Loader */
 .loader {
@@ -33,29 +41,27 @@ h1 {
 }
 
 @keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 /* Banner Styling */
 .banner {
   background: var(--banner-bg);
   color: var(--banner-text);
-  padding: 20px;
+  padding: clamp(15px, 3vw, 25px);
   text-align: center;
   border-radius: 8px;
   margin-bottom: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: background-color 0.3s, color 0.3s;
+  position: relative;
+  width: 100%;
 }
 
 .banner-logo {
   font-family: 'Roboto Slab', serif;
-  font-size: 3em;
+  font-size: clamp(2rem, 6vw, 3rem);
   margin: 0;
   font-weight: 900; /* ExtraBold */
   color: var(--logo-color); /* Dynamisk färg */
@@ -69,7 +75,7 @@ h1 {
 .banner-week {
   font-family: 'Roboto Slab', serif;
   color: var(--week-text);
-  font-size: 1.5em;
+  font-size: clamp(1rem, 3.5vw, 1.5rem);
   margin: 5px 0 0 0;
   font-style: italic;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
@@ -81,6 +87,7 @@ h1 {
   --banner-text: #121212;
   --logo-color: #000;
   --week-text: #000;
+  --theme-icon-color: #f9d71c; /* Gul färg för solen */
   background: linear-gradient(135deg, #f5f5f5, #ffffff);
   color: #121212;
 }
@@ -91,28 +98,29 @@ h1 {
   --banner-text: #ffffff;
   --logo-color: #ffffff;
   --week-text: #ffffff;
+  --theme-icon-color: #f5f5f5; /* Vit färg för månen */
   background: linear-gradient(135deg, #1e1e1e, #292929);
   color: #ffffff;
 }
 
-
 /* Theme Switch Styling */
 .theme-switch {
   position: absolute;
-  top: 15px; /* Justerat för att ge lite mer utrymme från toppen */
-  right: 20px; /* Matchar resten av sidans marginal */
+  top: clamp(10px, 2vw, 15px);
+  right: clamp(10px, 2vw, 20px);
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 1.5rem;
+  font-size: clamp(1.2rem, 4vw, 1.5rem);
   color: var(--theme-icon-color);
   transition: color 0.3s, transform 0.2s ease-in-out;
-  padding: 8px; /* Lägger till padding för bättre klickbarhet */
-  margin: 0; /* Inga oönskade margin för att hålla det snyggt */
+  padding: 8px;
+  margin: 0;
+  z-index: 10;
 }
 
 .theme-switch:hover {
-  transform: scale(1.1); /* Ger en liten förstoring vid hover */
+  transform: scale(1.1);
 }
 
 .theme-switch:focus {
@@ -120,15 +128,30 @@ h1 {
 }
 
 .theme-icon {
-  font-size: 1.8rem;
+  font-size: clamp(1.4rem, 4vw, 1.8rem);
 }
 
-/* Light Mode */
-.light-mode .theme-switch {
-  --theme-icon-color: #f9d71c; /* Gul färg för solen */
+/* Responsive footer */
+footer {
+  margin-top: 20px;
+  padding: 10px;
+  text-align: center;
+  width: 100%;
 }
 
-/* Dark Mode */
-.dark-mode .theme-switch {
-  --theme-icon-color: #f5f5f5; /* Vit färg för månen */
+footer a {
+  text-decoration: none;
+  color: #ff5722;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+footer a:hover {
+  color: #e64a19;
+}
+
+/* Ensure images don't overflow */
+img {
+  max-width: 100%;
+  height: auto;
 }

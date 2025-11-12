@@ -2,34 +2,22 @@
   background-color: var(--card-bg);
   color: var(--card-text);
   border-radius: 8px;
-  padding: 12px;
-  width: 220px;
-  height: 300px;
+  padding: clamp(6px, 2%, 12px);
+  width: 100%;
+  /* Modified aspect ratio for better content fit */
+  aspect-ratio: 3/4;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   position: relative;
   overflow: hidden;
-  transition: transform 0.2s, box-shadow 0.2s, background-color 0.3s, color 0.3s, width 0.3s, height 0.3s;
+  transition: transform 0.2s, box-shadow 0.2s, background-color 0.3s, color 0.3s;
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
 }
 
 .offer-item:hover {
-  transform: scale(1.05);
+  transform: scale(1.03);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-}
-
-
-@media (max-width: 768px) {
-  .offer-item {
-    width: 260px; 
-    height: 340px; 
-  }
-}
-
-@media (max-width: 480px) {
-  .offer-item {
-    width: 300px;
-    height: 380px;
-  }
 }
 
 .offer-item.spinning {
@@ -37,58 +25,62 @@
 }
 
 @keyframes spinCardPropeller {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 .discount-label {
   position: absolute;
-  top: 8px;
-  right: 8px;
+  top: 4px;
+  right: 4px;
   color: #fff;
-  padding: 6px 10px;
+  margin: 2px;
+  padding: 4px 6px;
   border-radius: 4px;
-  font-size: 16px;
+  font-size: clamp(10px, 2.8vw, 14px);
   font-weight: bold;
-  text-shadow: 2px 2px 3px black;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9);
   z-index: 10;
-  background-color: rgb(255, 52, 52);
+  background-color: rgb(255, 52, 52, 0.8);
+  max-width: 130px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .offer-save-amount {
   position: absolute;
-  bottom: 8px;
-  left: 8px;
+  bottom: 4px;
+  left: 4px;
   color: #fff;
-  padding: 6px 10px;
+  padding: 4px 6px;
   border-radius: 4px;
-  font-size: 16px;
+  font-size: clamp(10px, 2.8vw, 14px);
   font-weight: bold;
-  text-shadow: 2px 2px 3px black;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
   transition: transform 0.6s ease-in-out, opacity 0.6s ease-in-out;
   opacity: 1;
+  max-width: 130px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .offer-save-amount .save-large {
-  font-size: 20px;
+  font-size: clamp(14px, 3.5vw, 18px);
   display: block;
 }
 
 .offer-save-amount .save-small {
-  font-size: 12px;
+  font-size: clamp(10px, 2vw, 12px);
   display: block;
 }
 
 .offer-save-amount.zoom-effect {
-  transform: scale(1.3);
+  transform: scale(1.1);
   opacity: 1;
   z-index: 20;
 }
-
 
 .offer-save-amount.low {
   background-color: rgb(255, 86, 184);
@@ -99,56 +91,116 @@
 }
 
 .offer-save-amount.high {
-  background-color: rgb(69, 190, 69);
+  background-color: rgb(69, 190, 69, 0.9);
 }
 
 .offer-image-wrapper {
   position: relative;
+  width: 100%;
+  /* Improved image area sizing */
+  min-height: 140px;
+  height: 50%;
+  max-height: 220px;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+  overflow: hidden;
 }
 
 .offer-image {
   width: 100%;
-  height: auto;
+  height: 100%;
   border-radius: 8px;
+  object-fit: contain;
 }
 
 .offer-weight-volume {
   position: absolute;
-  bottom: 8px;
-  right: 8px;
-  background-color: #333;
+  bottom: 4px;
+  right: 4px;
+  background-color: rgba(102, 28, 97, 0.85);
   color: #fff;
-  padding: 4px 8px;
+  padding: 2px 4px;
   border-radius: 4px;
-  font-size: 12px;
+  font-size: clamp(8px, 2.8vw, 12px);
+  max-width: 80px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Text content container to better organize layout */
+.offer-text-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  justify-content: flex-start;
 }
 
 .offer-name {
-  font-size: 16px;
-  margin: 10px 0;
+  font-size: clamp(12px, 4vw, 16px);
+  margin: 0 0 6px 0;
   color: var(--card-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-height: 1.3;
+  max-height: 2.6em;
 }
 
 .offer-manufacturer {
-  font-size: 14px;
-  margin: 5px 0;
+  font-size: clamp(10px, 2.5vw, 14px);
+  margin: 0 0 2px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--card-text-secondary, #666);
 }
 
 .offer-original-price {
-  font-size: 14px;
-  margin: 5px 0;
+  font-size: clamp(10px, 2.5vw, 14px);
+  margin: 2px 0 0 0;
   color: var(--card-text);
   text-decoration: line-through;
   opacity: 0.7;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
-
 
 .light-mode .offer-item {
   --card-bg: #ffffff;
   --card-text: #121212;
+  --card-text-secondary: #666666;
 }
 
 .dark-mode .offer-item {
   --card-bg: #1e1e1e;
   --card-text: #ffffff;
+  --card-text-secondary: #aaaaaa;
+}
+
+/* Responsive adjustments for different screen sizes */
+@media (min-width: 768px) {
+  .offer-image-wrapper {
+    height: 55%;
+    max-height: 240px;
+  }
+  
+  .offer-name {
+    font-size: clamp(14px, 2.5vw, 16px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .offer-image-wrapper {
+    height: 60%;
+    max-height: 260px;
+  }
 }

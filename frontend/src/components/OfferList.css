@@ -4,21 +4,27 @@
     background-color: var(--list-bg); /* Dynamisk bakgrund för Dark/Light Mode */
     color: var(--list-text); /* Dynamisk textfärg */
     transition: background-color 0.3s ease, color 0.3s ease; /* Smidigare övergångar */
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    box-sizing: border-box;
 }
 
 .offer-list-header {
     text-align: center;
     margin-bottom: 20px;
     color: var(--list-header); /* Dynamisk färg för rubrik */
-    font-size: 24px; /* Förbättrad läsbarhet */
+    font-size: clamp(18px, 5vw, 24px); /* Förbättrad läsbarhet */
     font-weight: bold;
 }
 
 .offer-summary {
     text-align: center;
     margin-bottom: 20px;
-    font-size: 18px;
+    font-size: clamp(14px, 4vw, 18px);
     color: var(--list-text); /* Dynamisk textfärg */
+    display: grid;
+    gap: 8px;
 }
 
 .offer-summary strong {
@@ -26,11 +32,34 @@
     font-weight: bold;
 }
 
+/* Modern CSS Grid layout - Always at least 2 columns */
 .offer-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
+    display: grid;
+    /* This ensures we always have 2 columns minimum, even on the smallest screens */
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(8px, 2vw, 20px);
+    width: 100%;
+}
+
+/* Three columns for medium screens */
+@media (min-width: 768px) {
+    .offer-list {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Four columns for large screens */
+@media (min-width: 1024px) {
+    .offer-list {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* Five columns for extra large screens */
+@media (min-width: 1440px) {
+    .offer-list {
+        grid-template-columns: repeat(5, 1fr);
+    }
 }
 
 /* Light Mode */
@@ -51,5 +80,6 @@
 
 /* Övergångsanimation för sammanfattning */
 .offer-summary p {
+    margin: 5px 0;
     transition: color 0.3s ease;
 }

@@ -51,15 +51,17 @@ const OfferItem = ({ offer }) => {
         )}
       </div>
 
-      {/* Produktinformation */}
-      <h2 className="offer-name">{offer.name}</h2>
-      <p className="offer-manufacturer">Tillverkare: {offer.manufacturer}</p>
-      <p className="offer-original-price">
-        Originalpris:{" "}
-        {offer.originalPrice
-          ? `${offer.originalPrice} ${offer.priceUnit || "kr"}`
-          : "No price available"}
-      </p>
+      {/* Produktinformation - now wrapped in a container */}
+      <div className="offer-text-content">
+        <h2 className="offer-name">{offer.name}</h2>
+        <p className="offer-manufacturer">Tillverkare: {offer.manufacturer}</p>
+        <p className="offer-original-price">
+          Originalpris:{" "}
+          {offer.originalPrice
+            ? `${offer.originalPrice} ${offer.priceUnit || "kr"}`
+            : "No price available"}
+        </p>
+      </div>
     </div>
   );
 };
